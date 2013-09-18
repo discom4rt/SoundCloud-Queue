@@ -6,5 +6,6 @@
 *DS_Store
 .powrc
 .ruby-version
-/.bundle
+/config/initializers/soundcloud/constants.rb
+
 
