@@ -8,6 +8,42 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require_self
  *= require_tree .
+ *= require_self
  */
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  color: #333;
+  background: #fff;
+  font: 12px/1.4 "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Garuda,Verdana,Tahoma,sans-serif
+}
+
+a,
+a:visited,
+a:hover {
+  color: #f60;
+  text-decoration: none;
+}
+
+#connect-wrapper {
+  display: table;
+  width: 100%;
+  height: 100%;
+}
+
+#connect {
+  margin: 0px auto;
+  width: 50%;
+  text-align: center;
+  display: table-cell; 
+  vertical-align: middle;
+
+  a {
+    font-size: 2em;
+  }
+}
