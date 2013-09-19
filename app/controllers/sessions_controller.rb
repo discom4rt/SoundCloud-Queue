@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
 
   def create
     @code = params[:code]
-    @access_token = @client.exchange_token(:code => code)
+    @access_token = @client.exchange_token(:code => @code)
     @user = User.new
     @user.access_token = @access_token
 
