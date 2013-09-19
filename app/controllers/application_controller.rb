@@ -4,7 +4,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_filter :authenticate
-  skip_before_filter :authenticate, :only => [:index]
 
   def index
     redirect_to stream_url if session[SessionsController::SC_TOKEN_KEY]

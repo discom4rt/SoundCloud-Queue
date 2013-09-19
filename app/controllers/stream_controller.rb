@@ -1,6 +1,6 @@
 class StreamController < ApplicationController
 
-  before_filter :init_user, :init_soundcloud
+  before_filter :authenticate, :init_user, :init_soundcloud
 
   def show
     @current_user = @client.get('/me')

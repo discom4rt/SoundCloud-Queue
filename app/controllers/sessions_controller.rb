@@ -3,7 +3,6 @@ class SessionsController < ApplicationController
   SC_TOKEN_KEY = "scat"
 
   before_filter :init_soundcloud
-  skip_before_filter :authenticate, :only => [:new]
 
   def new
     redirect_to @client.authorize_url(:scope => "non-expiring")
