@@ -1,3 +1,3 @@
-class Users < ActiveRecord::Base
+class User < ActiveRecord::Base
   validates :access_token, :presence => true
 end
