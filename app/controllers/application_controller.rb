@@ -4,5 +4,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def index
+    redirect_to stream_url if session[SessionsController::SC_TOKEN_KEY]
   end
 end

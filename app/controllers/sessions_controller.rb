@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
 
   def new
     if session[SC_TOKEN_KEY]
-      redirect_to stream_path
+      redirect_to stream_url
     else
       redirect_to @client.authorize_url(:scope => "non-expiring")
     end
@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
 
     if @user.save
       session[SC_TOKEN_KEY] = @user.access_token
-      redirect_to stream_path
+      redirect_to stream_url
     else
       render text: "Fuck"
     end
