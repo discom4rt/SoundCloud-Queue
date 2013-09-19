@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
     @code = params[:code]
     @access_token = @client.exchange_token(:code => @code)
     @user = User.new
-    @user.access_token = @access_token
+    @user.access_token = @access_token[:access_token]
 
     if @user.save
       session[SC_TOKEN_KEY] = @access_token
