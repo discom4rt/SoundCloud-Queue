@@ -4,6 +4,7 @@ class StreamController < ApplicationController
 
   def show
     @current_user = @client.get('/me')
+    @stream = @client.get('/me/activities')
   end
 
   private

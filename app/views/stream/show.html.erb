@@ -1,1 +1,25 @@
+<header id="header">
+  <div class="left">
+    <a href="<%= @current_user.permalink_url %>" title="<%= @current_user.username %>">
+      <img src="<%= @current_user.avatar_url %>" alt="<%= @current_user.username %>">
+    </a>
+    <h1>SoundCloud Queue</h1>
+  </div>
+</header>
 <%= @current_user.username %>
+<div id="content">
+  <div id="tracks">
+  <% @stream.collection.each do |activity| %>
+    <% if activity.type == "track" %>
+      <%= activity.inspect %>
+      <br><br>
+    <% end %>
+  <% end %>
+  </div>
+  <div id="sidebar">
+    <div id="queue">
+      <h2>Next</h2>
+      <ul></ul>
+    </div>
+  </div>
+</div>
