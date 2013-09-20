@@ -16,9 +16,9 @@ class SessionsController < ApplicationController
 
     if @user.save
       session[SC_TOKEN_KEY] = @user.access_token
-      redirect_to stream_url
+      redirect_to stream_url, :anchor => ''
     else
-      render text: "Fuck"
+      render text: "Oops, Soundcloud Queue messed up."
     end
   end
 
