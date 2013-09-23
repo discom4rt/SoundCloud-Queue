@@ -9,12 +9,17 @@
 <%= @current_user.username %>
 <div id="content">
   <div id="tracks">
-  <% @stream.collection.each do |activity| %>
-    <% if activity.type == "track" %>
-      <%= activity.inspect %>
-      <br><br>
+    <ul>
+    <% @stream.collection.each do |activity| %>
+      <% if activity.type == "track" %>
+        <li>
+          <iframe width="100%" src="https://w.soundcloud.com/player/?url=<%= activity.origin.uri %>"></iframe>
+          <button title="Queue" class="queue-button" tabindex="0">Queue</button>
+          <!-- <span><%= activity.inspect %></span> -->
+        </li>
+      <% end %>
     <% end %>
-  <% end %>
+    </ul>
   </div>
   <div id="sidebar">
     <div id="queue">
