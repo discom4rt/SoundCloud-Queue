@@ -1,13 +1,54 @@
-/* This code is just terrible */
+/* This code is just terrible. Hi, I promise I'm not an undergraduate. */
 SC.Queue = {
   init: function() {
+    var self = this;
+
     this.$list = $('#queue ul');
+    this.$tracks = $('#tracks');
+
+    this.$list.on('click', '.dequeue-button', function( event ) {
+      var $target = $(event.target),
+        $targetTrack = $target.prev();
+      self.remove( $targetTrack );
+    });
+  },
+
+  remove: function( $existingTrack ) {
+    var existingTrackWidget = SC.Widget( $existingTrack[0] ),
+      $nextTrack = $existingTrack.closest('li').next().find('iframe'),
+      $previousTrack = $existingTrack.closest('li').prev().find('iframe'),
+      trackIdToDequeue = $existingTrack.attr('id').replace(/-queued$/, ''),
+      $trackToDequeue = $('#' + trackIdToDequeue),
+      nextTrackWidget,
+      previousTrackWidget;
+
+    existingTrackWidget.isPaused(function( isPaused ) {
+
+      if ( $nextTrack.length ) {
+        nextTrackWidget = SC.Widget( $nextTrack[0] );
+
+        if( !isPaused ) {
+          nextTrackWidget.play();
+        } else if( $previousTrack.length ) {
+          previousTrackWidget = SC.Widget( $previousTrack[0] );
+          previousTrackWidget.unbind(SC.Widget.Events.FINISH);
+          previousTrackWidget.bind(SC.Widget.Events.FINISH, function() {
+            nextTrackWidget.play();
+            $previousTrack.closest('li').remove();
+          });
+        }
+      }
+
+      $existingTrack.closest('li').remove();
+      $trackToDequeue.next().removeClass('active');
+    });
   },
 
   add: function( $trackIframe ) {
     var newTrackId = $trackIframe.attr( 'id' ) + '-queued',
      trackSrc = $trackIframe.attr( 'src' ),
      $existingTrack = this.$list.find( '#' + newTrackId ),
+     self = this,
      existingTrackWidget,
      $newListItem,
      $newRemoveButton,
@@ -23,31 +64,10 @@ SC.Queue = {
     // if the existing track is not playing, we assume is somehwere in the queue
     // so we remove it and reset the next track to play after the previous one.
     if( $existingTrack.length ) {
-      existingTrackWidget = SC.Widget( $existingTrack[0] );
-      $nextTrack = $existingTrack.closest('li').next().find('iframe');
-      $previousTrack = $existingTrack.closest('li').prev().find('iframe');
-
-      existingTrackWidget.isPaused(function( isPaused ) {
-
-        if ( $nextTrack.length ) {
-          nextTrackWidget = SC.Widget( $nextTrack[0] );
-
-          if( !isPaused ) {
-            nextTrackWidget.play();
-          } else if( $previousTrack.length ) {
-            previousTrackWidget = SC.Widget( $previousTrack[0] );
-            previousTrackWidget.unbind(SC.Widget.Events.FINISH);
-            previousTrackWidget.bind(SC.Widget.Events.FINISH, function() {
-              nextTrackWidget.play();
-              $previousTrack.closest('li').remove();
-            });
-          }
-        }
-
-        $existingTrack.closest('li').remove();
-      });
+      this.remove( $existingTrack );
     } else {
       $newListItem = $('<li></li>');
+      // ugh kill me now
       $newRemoveButton = $('<button></button>').attr({
         "class": "dequeue-button button",
         "title": "Remove"
@@ -81,13 +101,12 @@ SC.Queue = {
 
           previousTrackWidget.bind(SC.Widget.Events.FINISH, function() {
             newTrackWidget.play();
-            $previousTrack.closest('li').remove();
+            self.remove( $previousTrack );
           });
+        } else {
+          newTrackWidget.play();
         }
-
-        // SOMETHING ELSE
       });
-      // deal with playback on the stream
     }
   }
 };

@@ -85,6 +85,7 @@ h2 {
   }
 
   .queue-button {
+    display: none;
     top: -60px;
     left: 122px;
   }
@@ -112,5 +113,11 @@ h2 {
   ul {
     padding: 0;
     list-style: none;
+
+    li:not(:first-child) iframe {
+      // offset for dequeue button
+      margin-top: -20px;
+    }
+
   }
 }

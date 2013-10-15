@@ -22,6 +22,7 @@ SC.Stream.prototype.setupContinuousPlay = function() {
       widget = SC.Widget( $widgetIframe[0] );
 
     widget.bind(SC.Widget.Events.READY, function() {
+      $widgetIframe.next().show();
       widget.bind(SC.Widget.Events.FINISH, function() {
         var $nextWidgetIframe = $widgetIframe.closest('li').next().find('iframe'),
           nextWidget = SC.Widget( $nextWidgetIframe[0] );
