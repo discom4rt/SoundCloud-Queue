@@ -80,13 +80,9 @@ h2 {
     padding: 0;
   }
 
-  iframe {
-    margin-bottom: 25px;
-  }
-
   .queue-button {
-    display: none;
-    top: -60px;
+    visibility: hidden;
+    top: -35px;
     left: 122px;
   }
 }
