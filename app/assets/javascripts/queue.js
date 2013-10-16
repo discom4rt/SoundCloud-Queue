@@ -14,6 +14,32 @@ SC.Queue = {
     });
 
     this.$clear.on( 'click', $.proxy( this.clearQueue, this ) );
+
+    this.setupContinuousPlay();
+  },
+
+  setupContinuousPlay: function() {
+    var self = this;
+
+    this.$list.find('iframe').each(function() {
+      var $widgetIframe = $(this),
+        widget = SC.Widget( $widgetIframe[0] );
+
+      widget.bind(SC.Widget.Events.READY, function() {
+        $widgetIframe.next().css('visibility', 'visible');
+        widget.bind(SC.Widget.Events.FINISH, function() {
+          var $nextWidgetIframe = $widgetIframe.closest('li').next().find('iframe'),
+            nextWidget;
+
+          if( $nextWidgetIframe.length ) {
+            nextWidget = SC.Widget( $nextWidgetIframe[0] );
+            nextWidget.play();
+          }
+
+          self.remove( $widgetIframe );
+        });
+      });
+    });
   },
 
   clearQueue: function( event ) {
@@ -31,6 +57,7 @@ SC.Queue = {
       $previousTrack = $existingTrack.closest('li').prev().find('iframe'),
       trackIdToDequeue = $existingTrack.attr('id').replace(/-queued$/, ''),
       $trackToDequeue = $('#' + trackIdToDequeue),
+      self = this,
       nextTrackWidget,
       previousTrackWidget;
 
@@ -48,7 +75,7 @@ SC.Queue = {
           previousTrackWidget.unbind(SC.Widget.Events.FINISH);
           previousTrackWidget.bind(SC.Widget.Events.FINISH, function() {
             nextTrackWidget.play();
-            $previousTrack.closest('li').remove();
+            self.remove( $previousTrack );
           });
         }
       }

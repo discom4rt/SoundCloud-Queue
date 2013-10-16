@@ -71,9 +71,9 @@ h2 {
 }
 
 @-webkit-keyframes pulse {
-  0%   { background: #cc5200; }
+  0%   { background: #FF6600; }
   50%   { background: #fff; }
-  100%   { background: #cc5200; }
+  100%   { background: #FF6600; }
 }
 
 #tracks {
@@ -95,7 +95,7 @@ h2 {
   .next {
     width: 42px;
     height: 42px;
-    background: #cc5200;
+    background: #FF6600;
     border-radius: 100%;
     margin-left: 50%;
     -webkit-animation: pulse 1s infinite;
