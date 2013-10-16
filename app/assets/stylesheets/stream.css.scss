@@ -70,6 +70,12 @@ h2 {
   }
 }
 
+@-webkit-keyframes pulse {
+  0%   { background: #cc5200; }
+  50%   { background: #fff; }
+  100%   { background: #cc5200; }
+}
+
 #tracks {
   padding: 30px 30px 0 0;
   margin: 0 340px 0 0;
@@ -77,13 +83,23 @@ h2 {
 
   ul {
     list-style: none;
-    padding: 0;
+    padding: 0 0 25px 0;
   }
 
   .queue-button {
     visibility: hidden;
     top: -35px;
     left: 122px;
+  }
+
+  .next {
+    width: 42px;
+    height: 42px;
+    background: #cc5200;
+    border-radius: 100%;
+    margin-left: 50%;
+    -webkit-animation: pulse 1s infinite;
+    display: none;
   }
 }
 

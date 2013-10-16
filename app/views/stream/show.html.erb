@@ -11,14 +11,7 @@
   <div id="tracks">
     <h2>Your Stream</h2>
     <ul>
-    <% @stream.collection.each_with_index do |activity, index| %>
-      <% if activity.type == "track" %>
-        <li>
-          <iframe id="track-<%= activity.origin.id %>" width="100%" src="https://w.soundcloud.com/player/?url=<%= activity.origin.uri %>"></iframe>
-          <button title="Queue" class="queue-button button">Queue</button>
-        </li>
-      <% end %>
-    <% end %>
+    <%= render partial: "tracks" %>
     </ul>
   </div>
   <div id="sidebar">

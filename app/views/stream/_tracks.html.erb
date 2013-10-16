@@ -1,0 +1,9 @@
+<% @stream.collection.each_with_index do |activity, index| %>
+  <% if activity.type == "track" %>
+    <li>
+      <iframe id="track-<%= activity.origin.id %>" width="100%" src="https://w.soundcloud.com/player/?url=<%= activity.origin.uri %>"></iframe>
+      <button title="Queue" class="queue-button button">Queue</button>
+    </li>
+  <% end %>
+<% end %>
+<li class="next" data-next="<%= @stream.next_href %>"></li>
