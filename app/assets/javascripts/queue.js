@@ -5,12 +5,22 @@ SC.Queue = {
 
     this.$list = $('#queue ul');
     this.$tracks = $('#tracks');
+    this.$clear = $('#clear-queue');
 
     this.$list.on('click', '.dequeue-button', function( event ) {
       var $target = $(event.target),
         $targetTrack = $target.prev();
       self.remove( $targetTrack );
     });
+
+    this.$clear.on( 'click', $.proxy( this.clearQueue, this ) );
+  },
+
+  clearQueue: function( event ) {
+    var self = this;
+
+    this.$list.find('li').remove();
+    this.$tracks.find('.queue-button').removeClass('active');
   },
 
   remove: function( $existingTrack ) {
@@ -74,7 +84,7 @@ SC.Queue = {
       }).text('Remove');
       $newTrack = $trackIframe.clone().attr({
         'id': newTrackId,
-        'src': trackSrc + '?download=false&sharing=false&buying=false&liking=true'
+        'src': trackSrc + '?download=true&sharing=true&buying=false&liking=true'
       });
       $newListItem.append( $newTrack );
       $newListItem.append( $newRemoveButton );
@@ -91,6 +101,8 @@ SC.Queue = {
         //     newTrackWidget.seekTo( pos );
         //   });
         // });
+
+        $newRemoveButton.css('visibility', 'visible');
 
         // REMOVE WHEN FINISHED
         newTrackWidget.bind(SC.Widget.Events.FINISH, function() {

@@ -111,12 +111,17 @@ h2 {
   width: 300px;
   padding-right: 30px;
 
+  #clear-queue {
+    float: right;
+  }
+
   #queue {
     position: fixed;
     width: 300px;
     padding-bottom: 30px;
 
     .dequeue-button {
+      visibility: hidden;
       top: -35px;
       left: 8px;
     }
