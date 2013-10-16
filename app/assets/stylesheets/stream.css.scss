@@ -128,6 +128,8 @@ h2 {
   }
 
   ul {
+    max-height: 720px;
+    overflow-y: scroll;
     padding: 0;
     list-style: none;
 
