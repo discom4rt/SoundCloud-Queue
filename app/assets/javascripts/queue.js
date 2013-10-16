@@ -92,6 +92,11 @@ SC.Queue = {
         //   });
         // });
 
+        // REMOVE WHEN FINISHED
+        newTrackWidget.bind(SC.Widget.Events.FINISH, function() {
+          self.remove( $newTrack );
+        });
+
         // SET UP PLAY AFTER PREVIOUS TRACK
         $previousTrack = $newTrack.closest('li').prev().find('iframe');
         if( $previousTrack.length ) {
