@@ -14,4 +14,8 @@ class ApplicationController < ActionController::Base
       redirect_to new_session_url
     end
   end
+
+  def init_user
+    @user = User.where(:access_token => session[SessionsController::SC_TOKEN_KEY]).first
+  end
 end

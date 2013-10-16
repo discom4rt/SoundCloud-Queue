@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
   validates :access_token, :presence => true
 
-  has_one :q
+  has_many :tracks
 end

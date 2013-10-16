@@ -17,10 +17,6 @@ class StreamController < ApplicationController
 
   private
 
-  def init_user
-    @user = User.where(:access_token => session[SessionsController::SC_TOKEN_KEY]).first
-  end
-
   def init_soundcloud
     @client = Soundcloud.new(:access_token => @user.access_token)
   end

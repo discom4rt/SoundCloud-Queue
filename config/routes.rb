@@ -5,5 +5,9 @@ SoundcloudQueue::Application.routes.draw do
 
   resource :stream, :only => [:show], :controller => :stream
 
+  resources :tracks, :only => [:create, :destroy] do
+    post 'clear', :on => :collection
+  end
+
   root 'application#index'
 end
