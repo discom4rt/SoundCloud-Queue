@@ -12,3 +12,10 @@
 //
 //= require jquery
 //= require_tree .
+$(function() {
+  $.ajaxSetup({
+    beforeSend: function( xhr ) {
+      xhr.setRequestHeader( 'X-CSRF-Token', $('meta[name="csrf-token"]').attr( 'content' ) );
+    }
+  });
+});

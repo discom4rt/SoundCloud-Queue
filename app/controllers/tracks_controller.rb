@@ -3,7 +3,7 @@ class TracksController < ApplicationController
   before_filter :authenticate, :init_user
 
   def create
-    @track = Track.new(params[:track])
+    @track = Track.new(track_params)
     @track.user_id = @user.id
 
     if @track.save
@@ -14,12 +14,20 @@ class TracksController < ApplicationController
   end
 
   def destroy
-    @track = @user.tracks.where(:track_id => params[:track][:track_id])
+    @track = @user.tracks.where(:track_id => params[:id]).first
     @track.destroy
+    render :nothing => true
   end
 
   def clear
     @user.tracks.destroy_all
+    render :nothing => true
+  end
+
+  private
+
+  def track_params
+    params.require(:track).permit(:track_id)
   end
 
 end

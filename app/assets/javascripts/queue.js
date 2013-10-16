@@ -21,6 +21,8 @@ SC.Queue = {
 
     this.$list.find('li').remove();
     this.$tracks.find('.queue-button').removeClass('active');
+
+    $.post('tracks/clear');
   },
 
   remove: function( $existingTrack ) {
@@ -31,6 +33,8 @@ SC.Queue = {
       $trackToDequeue = $('#' + trackIdToDequeue),
       nextTrackWidget,
       previousTrackWidget;
+
+    $.post('tracks/'+ $existingTrack.data('track-id'), { _method: 'delete' });
 
     existingTrackWidget.isPaused(function( isPaused ) {
 
@@ -90,6 +94,8 @@ SC.Queue = {
       $newListItem.append( $newRemoveButton );
       this.$list.append( $newListItem );
       newTrackWidget = SC.Widget( $newTrack[0] );
+
+      $.post('tracks', { 'track': { 'track_id': $newTrack.data('track-id') } });
 
       newTrackWidget.bind(SC.Widget.Events.READY, function() {
 
