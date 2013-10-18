@@ -11,13 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131016153526) do
+ActiveRecord::Schema.define(version: 20131018152827) do
 
   create_table "tracks", force: true do |t|
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "track_id"
+    t.integer  "track_id",   limit: 8
   end
 
   create_table "users", force: true do |t|
