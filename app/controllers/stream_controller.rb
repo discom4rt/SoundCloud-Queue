@@ -1,6 +1,6 @@
 class StreamController < ApplicationController
 
-  before_filter :authenticate, :init_user, :init_soundcloud
+  before_filter :authenticate, :init_user, :init_soundcloud_from_user
 
   SC_NEXT_KEY = 'next'
 
@@ -13,12 +13,6 @@ class StreamController < ApplicationController
     else
       @stream = @client.get('/me/activities')
     end
-  end
-
-  private
-
-  def init_soundcloud
-    @client = Soundcloud.new(:access_token => @user.access_token)
   end
 
 end

@@ -113,12 +113,15 @@ SC.Queue = {
         "class": "dequeue-button button",
         "title": "Remove"
       }).text('Remove');
+
       $newTrack = $trackIframe.clone().attr({
         'id': newTrackId,
         'src': trackSrc + '?download=true&sharing=true&buying=false&liking=true'
       });
+
       $newListItem.append( $newTrack );
       $newListItem.append( $newRemoveButton );
+      $newListItem.append( $trackIframe.siblings('.like-button, .repost-button').clone().css('visibility', '') );
       this.$list.append( $newListItem );
       newTrackWidget = SC.Widget( $newTrack[0] );
 
@@ -135,7 +138,7 @@ SC.Queue = {
         //   });
         // });
 
-        $newRemoveButton.css('visibility', 'visible');
+        $newTrack.siblings('button').css('visibility', 'visible');
 
         // REMOVE WHEN FINISHED
         newTrackWidget.bind(SC.Widget.Events.FINISH, function() {

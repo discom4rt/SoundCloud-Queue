@@ -18,4 +18,8 @@ class ApplicationController < ActionController::Base
   def init_user
     @user = User.where(:access_token => session[SessionsController::SC_TOKEN_KEY]).first
   end
+
+  def init_soundcloud_from_user
+    @client = Soundcloud.new(:access_token => @user.access_token)
+  end
 end

@@ -4,9 +4,13 @@ SC = SC || {};
 SC.Stream = function( $container ) {
   this.$container = $container;
   this.$tracks = this.$container.find('iframe');
+  this.$queue = $('#queue');
   this.isLoadingNext = false;
+
   this.setupContinuousPlay( this.$tracks );
   this.setupQueuing();
+  this.setupLiking();
+  // this.setupReposting();
   this.setupInfiniteScroll();
 };
 
@@ -17,6 +21,49 @@ SC.Stream.prototype.setupQueuing = function() {
     SC.Queue.add( $target.prev() );
   });
 };
+
+SC.Stream.prototype.setupLiking = function() {
+  var self = this;
+
+  this.$container.on('click', '.like-button', $.proxy( this.likeOrUnlike, this ));
+};
+
+// SC.Stream.prototype.setupReposting = function() {
+//   var self = this;
+
+//   this.$container.on('click', '.repost-button', function( event ) {
+//     var $target = $(event.target);
+//     $target.toggleClass('active');
+//     self.repostOrUnpost( $target.siblings('iframe').data('track-id'), $target.hasClass('active'), $target);
+//   });
+// };
+
+SC.Stream.prototype.likeOrUnlike = function ( event ) {
+  var $button = $(event.target),
+    $track = $button.siblings('iframe'),
+    trackId = $track.data('track-id'),
+    self = this,
+    likeMethod,
+    xhr;
+  
+  $button.toggleClass('active');
+  likeMethod = $button.hasClass('active') && 'like' || 'unlike';
+  xhr = $.post('/tracks/' + trackId + '?' + likeMethod, { _method: 'patch' });
+
+  xhr.fail(function() {
+    $button.toggleClass('active');
+    self.$queue.find('[data-track-id=' + trackId + ']').siblings('.like-button').toggleClass('active');
+  });
+
+  self.$queue.find('[data-track-id=' + trackId + ']').siblings('.like-button').toggleClass('active');
+};
+
+// SC.Stream.prototype.repostOrUnpost = function ( trackId, shouldPost ) {
+//   var postMethod = shouldPost && 'repost' || 'unpost';
+
+//   $.post('/tracks/' + trackId + '?' + postMethod, { _method: 'patch' });
+//   // change the corresponding queue item
+// };
 
 SC.Stream.prototype.setupContinuousPlay = function( $tracks ) {
   var $first = $($tracks[0]),
