@@ -23,8 +23,6 @@ SC.Stream.prototype.setupQueuing = function() {
 };
 
 SC.Stream.prototype.setupLiking = function() {
-  var self = this;
-
   this.$container.on('click', '.like-button', $.proxy( this.likeOrUnlike, this ));
 };
 

@@ -16,6 +16,7 @@ SC.Queue = {
     this.$clear.on( 'click', $.proxy( this.clearQueue, this ) );
 
     this.setupContinuousPlay();
+    this.setupLiking();
   },
 
   setupContinuousPlay: function() {
@@ -40,6 +41,30 @@ SC.Queue = {
         });
       });
     });
+  },
+
+  setupLiking: function() {
+    this.$list.on('click', '.like-button', $.proxy( this.likeOrUnlike, this ));
+  },
+
+  likeOrUnlike: function( event ) {
+    var $button = $(event.target),
+      $track = $button.siblings('iframe'),
+      trackId = $track.data('track-id'),
+      self = this,
+      likeMethod,
+      xhr;
+    
+    $button.toggleClass('active');
+    likeMethod = $button.hasClass('active') && 'like' || 'unlike';
+    xhr = $.post('/tracks/' + trackId + '?' + likeMethod, { _method: 'patch' });
+
+    xhr.fail(function() {
+      $button.toggleClass('active');
+      self.$tracks.find('[data-track-id=' + trackId + ']').siblings('.like-button').toggleClass('active');
+    });
+
+    self.$tracks.find('[data-track-id=' + trackId + ']').siblings('.like-button').toggleClass('active');
   },
 
   clearQueue: function( event ) {
