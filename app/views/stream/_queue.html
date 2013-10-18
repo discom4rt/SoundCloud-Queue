@@ -2,6 +2,8 @@
   <li>
     <iframe data-track-id="<%= track.track_id %>" id="track-<%= track.track_id %>-queued" width="100%" src="https://w.soundcloud.com/player/?url=https://api.soundcloud.com/tracks/<%= track.track_id %>?download=true&sharing=true&buying=false&liking=true"></iframe>
     <button class="dequeue-button button" title="Remove">Remove</button>
+    <button title="Like" class="like-button button small">Like</button>
+    <button title="Repost" class="repost-button button small">Repost</button>
   </li>
 <% end %>
 

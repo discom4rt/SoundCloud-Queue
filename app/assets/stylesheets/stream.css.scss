@@ -68,7 +68,49 @@ h2 {
     -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.0),inset 0 2px 2px rgba(0,0,0,.05),inset 0 1px 1px rgba(0,0,0,.08),inset -2px 0 2px rgba(0,0,0,.03),inset 0 -1px 0 rgba(0,0,0,.02),inset 2px 0 2px rgba(0,0,0,.03);
     box-shadow: 0 1px 3px rgba(0,0,0,.0),inset 0 2px 2px rgba(0,0,0,.05),inset 0 1px 1px rgba(0,0,0,.08),inset -2px 0 2px rgba(0,0,0,.03),inset 0 -1px 0 rgba(0,0,0,.02),inset 2px 0 2px rgba(0,0,0,.03);
   }
+
+  &.small {
+    text-indent: -400px;
+    font-family: "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Garuda,Verdana,Tahoma,sans-serif;
+    font-size: 11px;
+    padding: 2px 8px;
+    height: 22px;
+    line-height: 16px;
+    box-shadow: 0 1px 2px rgba(0,0,0,.02),inset 0 1px 0 rgba(255,255,255,1),inset -1px 0 0 rgba(255,255,255,1),inset 0 -1px 0 rgba(255,255,255,.5),inset 1px 0 0 rgba(255,255,255,1);
+  }
+
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 20px;
+    height: 20px;
+    top: 0;
+    left: 1px;
+  }
 }
+
+.like-button,
+.repost-button {
+  width: 25px;
+
+  &:before {
+    width: 21px;
+    height: 21px;    
+  }
+}
+
+.like-button:before {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAAWklEQVR42t2SsQkAIAwE3SkLZRQ3cARHcbRoIbwG8UEbsbjmyeUxGMzsmEdkEckN66SexSErswxRMYThRaZeRgMnb5opSt5MWyHzBRC9TBdA5LK/gV59ks/kCkS+PS+qknGfAAAAAElFTkSuQmCC);
+}
+
+
+.repost-button:before {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAAYUlEQVQoz2P4//8/A7mYYXBoNjY2ng/CULYAEJ8H4v9ouAFDM1QjTAGyAQ1I+D1IHkUzmkYUA9Bc1o+hGUkSxVlYNDfQVzMub2HT/B4tkARwBShWZ6Hh82gGzB9kKYyumgHOYTpnUHvjWAAAAABJRU5ErkJggg==);
+}
+
 
 @-webkit-keyframes pulse {
   0%   { background: #FF6600; }
@@ -86,10 +128,21 @@ h2 {
     padding: 0 0 25px 0;
   }
 
+  .button {
+    top: -35px;
+  }
+
   .queue-button {
     visibility: hidden;
-    top: -35px;
     left: 122px;
+  }
+
+  .repost-button {
+    left: 128px;
+  }
+
+  .like-button {
+    left: 125px;
   }
 
   .next {
@@ -111,19 +164,31 @@ h2 {
   width: 300px;
   padding-right: 30px;
 
-  #clear-queue {
-    float: right;
-  }
-
   #queue {
     position: fixed;
     width: 300px;
     padding-bottom: 30px;
 
+    #clear-queue {
+      top: initial;
+      float: right;
+    }
+
+    .button {
+      top: -35px;
+    }
+
     .dequeue-button {
       visibility: hidden;
-      top: -35px;
       left: 8px;
+    }
+
+    .like-button {
+      left: 11px;
+    }
+
+    .repost-button {
+      left: 15px;
     }
   }
 
