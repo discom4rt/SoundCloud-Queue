@@ -129,11 +129,11 @@ h2 {
   }
 
   .button {
+    visibility: hidden;
     top: -35px;
   }
 
   .queue-button {
-    visibility: hidden;
     left: 122px;
   }
 
@@ -170,16 +170,17 @@ h2 {
     padding-bottom: 30px;
 
     #clear-queue {
+      visibility: visible;
       top: initial;
       float: right;
     }
 
     .button {
+      visibility: hidden;
       top: -35px;
     }
 
     .dequeue-button {
-      visibility: hidden;
       left: 8px;
     }
 

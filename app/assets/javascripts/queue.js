@@ -26,7 +26,7 @@ SC.Queue = {
         widget = SC.Widget( $widgetIframe[0] );
 
       widget.bind(SC.Widget.Events.READY, function() {
-        $widgetIframe.next().css('visibility', 'visible');
+        $widgetIframe.siblings('button').css('visibility', 'visible');
         widget.bind(SC.Widget.Events.FINISH, function() {
           var $nextWidgetIframe = $widgetIframe.closest('li').next().find('iframe'),
             nextWidget;
