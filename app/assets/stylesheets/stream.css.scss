@@ -170,6 +170,24 @@ h2 {
     -webkit-animation: pulse 1s infinite;
     display: none;
   }
+
+  #duration-sort {
+    visibility: visible;
+    top: auto;
+    float: right;
+
+    &:after {
+      margin-left: 5px;
+    }
+
+    &.asc:after {
+      content: "⬆";
+    }
+
+    &.desc:after {
+      content: "⬇";
+    }
+  }
 }
 
 #sidebar {

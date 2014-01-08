@@ -5,11 +5,14 @@ SC.Stream = function( $container ) {
   this.$container = $container;
   this.$tracks = this.$container.find('iframe');
   this.$queue = $('#queue');
+  this.$durationSort = $('#duration-sort');
   this.isLoadingNext = false;
+  this.sort = 0;
 
   this.setupContinuousPlay( this.$tracks );
   this.setupQueuing();
   this.setupLiking();
+  this.setupDurationSorting();
   // this.setupReposting();
   this.setupInfiniteScroll();
 };
@@ -25,6 +28,66 @@ SC.Stream.prototype.setupQueuing = function() {
 SC.Stream.prototype.setupLiking = function() {
   this.$container.on('click', '.like-button', $.proxy( this.likeOrUnlike, this ));
 };
+
+SC.Stream.prototype.setupDurationSorting = function() {
+  var self = this;
+
+  this.$durationSort.on('click', function(event) {
+    switch( self.sort ) {
+      case 0:
+        self.$durationSort.addClass('asc');
+        self.sort = 1;
+        self.sortByDuration();
+        break;
+      case 1:
+        self.$durationSort.removeClass('asc');
+        self.$durationSort.addClass('desc');
+        self.sort = 2;
+        self.sortByDuration();
+        
+        break;
+      case 2:
+        self.$durationSort.removeClass('desc');
+        self.sort = 0;
+        self.unsort();
+        break;
+    }
+  });
+};
+
+SC.Stream.prototype.preserveOriginalOrder = function() {
+
+};
+
+SC.Stream.prototype.unsort = function() {
+
+};
+
+SC.Stream.prototype.sortByDuration = function() {
+  var list = this.$container.find('li:not(.next)');
+
+  list.sort(this.getDurationComparator()).prependTo(this.$container.find('ul'));
+};
+
+SC.Stream.prototype.getDurationComparator = function() {
+  var self = this;
+
+  if( this.sort === 2) {
+    return function(a, b) {
+      return self.durationComparator(b, a);
+    };
+  }
+
+  return this.durationComparator;
+};
+
+SC.Stream.prototype.durationComparator = function(a, b) {
+  var aval = parseInt(a.getElementsByTagName('iframe')[0].getAttribute('data-duration'), 10),
+    bval = parseInt(b.getElementsByTagName('iframe')[0].getAttribute('data-duration'), 10);
+
+  return aval - bval;
+};
+
 
 // SC.Stream.prototype.setupReposting = function() {
 //   var self = this;
