@@ -173,8 +173,10 @@ h2 {
 
   #track-length-filter {
     visibility: visible;
-    top: auto;
+    top: initial;
     float: right;
+    position: fixed;
+    right: 390px;
   }
 }
 

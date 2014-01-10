@@ -81,6 +81,7 @@ SC.Stream.prototype.setLengthFilter = function( event ) {
     // show all tracks
     case 0:
       $tracks.closest('li').show();
+      this.$filterLengthToggle.text('Showing All Tracks');
       break;
 
     // show only short tracks (<= TRACK_LENGTH_BOUND)
@@ -88,6 +89,7 @@ SC.Stream.prototype.setLengthFilter = function( event ) {
       this.$absentTracks = $tracks.filter(function(index) {
         return parseInt($(this).data('duration'), 10) > self.TRACK_LENGTH_BOUND;
       }).closest('li').hide();
+      this.$filterLengthToggle.text('Showing Short Tracks');
       break;
 
     // show only long tracks (> TRACK_LENGTH_BOUND)
@@ -96,6 +98,7 @@ SC.Stream.prototype.setLengthFilter = function( event ) {
       $tracks.filter(function(index) {
         return parseInt($(this).data('duration'), 10) <= self.TRACK_LENGTH_BOUND;
       }).closest('li').hide();
+      this.$filterLengthToggle.text('Showing Long Tracks');
       break;
   }
 };
@@ -158,6 +161,7 @@ SC.Stream.prototype.loadNext = function( event ) {
 
       $nextItem.replaceWith( $trackItems );
       self.setupContinuousPlay( $trackItems.find( 'iframe' ) );
+      self.setLengthFilter();
       self.isLoadingNext = false;
     });
   }
