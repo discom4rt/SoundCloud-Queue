@@ -1,7 +1,7 @@
 <% @stream.collection.each_with_index do |activity, index| %>
   <% if activity.type == "track" %>
     <li>
-      <iframe data-track-id="<%= activity.origin.id %>" id="track-<%= activity.origin.id %>" width="100%" src="https://w.soundcloud.com/player/?url=<%= activity.origin.uri %>&liking=false"></iframe>
+      <iframe data-track-id="<%= activity.origin.id %>" data-duration="<%= activity.origin.duration %>" id="track-<%= activity.origin.id %>" width="100%" src="https://w.soundcloud.com/player/?url=<%= activity.origin.uri %>&liking=false"></iframe>
       <button title="Queue" class="queue-button button<%= " active" if @user.tracks.where(:track_id => activity.origin.id).first %>">Queue</button>
       <button title="Like" class="like-button button small<%= " active" if activity.origin.user_favorite %>">Like</button>
       <button title="Repost" class="repost-button button small">Repost</button>

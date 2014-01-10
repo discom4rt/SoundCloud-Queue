@@ -170,6 +170,14 @@ h2 {
     -webkit-animation: pulse 1s infinite;
     display: none;
   }
+
+  #track-length-filter {
+    visibility: visible;
+    top: initial;
+    float: right;
+    position: fixed;
+    right: 390px;
+  }
 }
 
 #sidebar {
