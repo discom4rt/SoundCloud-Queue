@@ -141,7 +141,7 @@ SC.Queue = {
 
       $newTrack = $trackIframe.clone().attr({
         'id': newTrackId,
-        'src': trackSrc + '?download=true&sharing=true&buying=false&liking=false'
+        'src': trackSrc + '?download=true&sharing=true&buying=false'
       });
 
       $newListItem.append( $newTrack );
