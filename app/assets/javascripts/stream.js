@@ -2,11 +2,19 @@ SC = SC || {};
 
 // play widgets in a list that are in iframes
 SC.Stream = function( $container ) {
+  this.TRACK_LENGTH_BOUND = 600000;
+  this.TRACK_LENGTH_FILTER_STATES = 3;
+
   this.$container = $container;
   this.$tracks = this.$container.find('iframe');
   this.$queue = $('#queue');
+  this.$filterLengthToggle = $('#track-length-filter');
+  this.$absentTracks = null;
   this.isLoadingNext = false;
+  this.lengthFilterState = 0;
 
+
+  this.setupTrackLengthFilter();
   this.setupContinuousPlay( this.$tracks );
   this.setupQueuing();
   this.setupLiking();
@@ -54,6 +62,42 @@ SC.Stream.prototype.likeOrUnlike = function ( event ) {
   });
 
   self.$queue.find('[data-track-id=' + trackId + ']').siblings('.like-button').toggleClass('active');
+};
+
+SC.Stream.prototype.setupTrackLengthFilter = function() {
+  var self = this;
+  this.$filterLengthToggle.on('click', function( event ) {
+    self.lengthFilterState = ++self.lengthFilterState % self.TRACK_LENGTH_FILTER_STATES;
+    self.setLengthFilter();
+  });
+};
+
+SC.Stream.prototype.setLengthFilter = function( event ) {
+  var $tracks = this.$container.find('iframe'),
+    self = this;
+
+  switch( this.lengthFilterState ) {
+
+    // show all tracks
+    case 0:
+      $tracks.closest('li').show();
+      break;
+
+    // show only short tracks (<= TRACK_LENGTH_BOUND)
+    case 1:
+      this.$absentTracks = $tracks.filter(function(index) {
+        return parseInt($(this).data('duration'), 10) > self.TRACK_LENGTH_BOUND;
+      }).closest('li').hide();
+      break;
+
+    // show only long tracks (> TRACK_LENGTH_BOUND)
+    case 2:
+      this.$absentTracks.show();
+      $tracks.filter(function(index) {
+        return parseInt($(this).data('duration'), 10) <= self.TRACK_LENGTH_BOUND;
+      }).closest('li').hide();
+      break;
+  }
 };
 
 // SC.Stream.prototype.repostOrUnpost = function ( trackId, shouldPost ) {

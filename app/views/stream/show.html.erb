@@ -9,6 +9,7 @@
 <%= @current_user.username %>
 <div id="content">
   <div id="tracks">
+    <button title="Filter by track length" id="track-length-filter" class="button">All Tracks</button>
     <h2>Your Stream</h2>
     <ul>
     <%= render partial: "tracks" %>
