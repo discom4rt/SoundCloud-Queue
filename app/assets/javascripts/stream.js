@@ -135,7 +135,7 @@ SC.Stream.prototype.setupContinuousPlay = function( $tracks ) {
     widget.bind(SC.Widget.Events.READY, function() {
       $widgetIframe.siblings('button').css('visibility', 'visible');
       widget.bind(SC.Widget.Events.FINISH, function() {
-        var $nextWidgetIframe = $widgetIframe.closest('li').next().find('iframe'),
+        var $nextWidgetIframe = $widgetIframe.closest('li').nextAll(':visible').first().find('iframe'),
           nextWidget = SC.Widget( $nextWidgetIframe[0] );
         nextWidget.play();
       });
