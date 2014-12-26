@@ -1,4 +1,4 @@
-# [SoundCloud Queue](http://soundcloudqueue.morgan.io)
+# [SoundCloud Queue](http://soundcloudqueue.mhgbrown.is)
 Queue up the songs that you want to hear next. The goal of this project is to be able to create an "on-the-go" playlist for your stream so you can just queue up the songs that you know you'd like to listen to.
 
 ## Limitations
